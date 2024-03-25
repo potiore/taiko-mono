@@ -27,7 +27,7 @@ var (
 )
 
 // indexNFTTransfers indexes from a given starting block to a given end block and parses all event logs
-// to find ERC721 or ERC1155 transfer events
+// for finding ERC721 or ERC1155 transfer events
 func (i *Indexer) indexNFTTransfers(
 	ctx context.Context,
 	chainID *big.Int,
@@ -99,7 +99,7 @@ func (i *Indexer) saveNFTTransfer(ctx context.Context, chainID *big.Int, vLog ty
 	return errors.New("nftTransferVlog not ERC721 or ERC1155")
 }
 
-// saveERC721Transfer updates the user's balances on the from and to of a ERC721 transfer event
+// saveERC721Transfer updates the user's balances on the from and to of an ERC721 transfer event
 func (i *Indexer) saveERC721Transfer(ctx context.Context, chainID *big.Int, vLog types.Log) error {
 	from := fmt.Sprintf("0x%v", common.Bytes2Hex(vLog.Topics[1].Bytes()[12:]))
 
@@ -148,7 +148,7 @@ func (i *Indexer) saveERC721Transfer(ctx context.Context, chainID *big.Int, vLog
 	return nil
 }
 
-// saveERC1155Transfer parses and saves either a TransferSingle or TransferBatch event to
+// saves either a TransferSingle or TransferBatch event to
 // the database and updates the user's balances
 func (i *Indexer) saveERC1155Transfer(ctx context.Context, chainID *big.Int, vLog types.Log) error {
 	from := fmt.Sprintf("0x%v", common.Bytes2Hex(vLog.Topics[2].Bytes()[12:]))
